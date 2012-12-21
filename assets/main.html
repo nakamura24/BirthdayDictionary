@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+        <!--<style type="text/css">
+            select { visibility: visible; -webkit-appearance: menulist-text; }
+        </style>-->
+	<link rel="stylesheet"  href="css/themes/default/jquery.mobile-1.2.0.css" />
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.mobile-1.2.0.js"></script>
+        <script type="text/javascript">
+            //<!--
+            function loadXMLDoc(dname) {
+                if(window.XMLHttpRequest) {
+                    xhttp = new XMLHttpRequest();
+                }
+                else {
+                    xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xhttp.open("GET", dname, false);
+                xhttp.send();
+                return xhttp.responseXML;
+            }
+
+            function on_click() {
+                month = document.birthday.month.value;
+                day = document.birthday.day.value;
+                while(document.getElementById("colortable").childNodes.length >= 1) {
+                    document.getElementById("colortable").removeChild(document.getElementById("colortable").firstChild);
+                }
+                /*
+                var thelm = document.createElement("th");
+                thelm.appendChild(document.createTextNode(month + "月" + day + "日"));
+                var trelm1 = document.createElement("tr");
+                trelm1.appendChild(thelm);
+                document.getElementById("colortable").appendChild(trelm1);
+                */
+                color();
+                flower();
+                stone();
+            }
+
+            function color() {
+                xmlDoc = loadXMLDoc("colors.xml");
+                var colors = xmlDoc.getElementsByTagName("tr");
+                for(var i = 0; i < colors.length; i++) {
+                    var content = colors[i].getElementsByTagName("td")[0].firstChild.nodeValue;
+                    var re = new RegExp(month + "月" + day + "日");
+                    if(content.match(re)) {
+                        var tdelm = document.createElement("td");
+                        var style = colors[i].getElementsByTagName("td")[0].getAttribute("style");
+                        tdelm.setAttribute("style", style);
+                        tdelm.appendChild(document.createTextNode(content));
+                        colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        while(colors[i].getElementsByTagName("td")[0].childNodes.length >= 1) {
+                            if(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue == null) {
+                                colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                                continue;
+                            }
+                            var brelm = document.createElement("br");
+                            tdelm.appendChild(brelm);
+                            tdelm.appendChild(document.createTextNode(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue));
+                            colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        }
+                        break;
+                    }
+                }
+                var trelm = document.createElement("tr");
+                trelm.appendChild(tdelm);
+                document.getElementById("colortable").appendChild(trelm);
+            }
+
+            function flower() {
+                xmlDoc = loadXMLDoc("flowers.xml");
+                var colors = xmlDoc.getElementsByTagName("tr");
+                for(var i = 0; i < colors.length; i++) {
+                    var content = colors[i].getElementsByTagName("td")[0].firstChild.nodeValue;
+                    var re = new RegExp(month + "月" + day + "日");
+                    if(content.match(re)) {
+                        var tdelm = document.createElement("td");
+                        var style = colors[i].getElementsByTagName("td")[0].getAttribute("style");
+                        tdelm.setAttribute("style", style);
+                        tdelm.appendChild(document.createTextNode(content));
+                        colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        while(colors[i].getElementsByTagName("td")[0].childNodes.length >= 1) {
+                            if(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue == null) {
+                                colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                                continue;
+                            }
+                            var brelm = document.createElement("br");
+                            tdelm.appendChild(brelm);
+                            tdelm.appendChild(document.createTextNode(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue));
+                            colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        }
+                        break;
+                    }
+                }
+                var trelm = document.createElement("tr");
+                trelm.appendChild(tdelm);
+                document.getElementById("colortable").appendChild(trelm);
+            }
+
+            function stone() {
+                xmlDoc = loadXMLDoc("stones.xml");
+                var colors = xmlDoc.getElementsByTagName("tr");
+                for(var i = 0; i < colors.length; i++) {
+                    var content = colors[i].getElementsByTagName("td")[0].firstChild.nodeValue;
+                    var re = new RegExp(month + "月" + day + "日");
+                    if(content.match(re)) {
+                        var tdelm = document.createElement("td");
+                        var style = colors[i].getElementsByTagName("td")[0].getAttribute("style");
+                        tdelm.setAttribute("style", style);
+                        tdelm.appendChild(document.createTextNode(content));
+                        colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        while(colors[i].getElementsByTagName("td")[0].childNodes.length >= 1) {
+                            if(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue == null) {
+                                colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                                continue;
+                            }
+                            var brelm = document.createElement("br");
+                            tdelm.appendChild(brelm);
+                            tdelm.appendChild(document.createTextNode(colors[i].getElementsByTagName("td")[0].firstChild.nodeValue));
+                            colors[i].getElementsByTagName("td")[0].removeChild(colors[i].getElementsByTagName("td")[0].firstChild);
+                        }
+                        break;
+                    }
+                }
+                var trelm = document.createElement("tr");
+                trelm.appendChild(tdelm);
+                document.getElementById("colortable").appendChild(trelm);
+            }
+            //-->
+    </script>
+</head>
+<body>
+	<form name="birthday">
+        誕生日を入力して下さい<br />
+		<div data-role="fieldcontain">
+	    <label for="month" class="ui-hidden-accessible">月</label>
+		<input type="number" min="1" max="12" name="month" id="month" value="" />
+		</div>
+		<div data-role="fieldcontain">
+	    <label for="day" class="ui-hidden-accessible">日</label>
+		<input type="number" min="1" max="31" name="day" id="day" value="" />
+		</div>
+		<input type="button" value="決定" onclick="on_click()" />
+	</form>
+
+	<table>
+		<tbody id="colortable" />
+    </table>
+    <a href="http://www.nicopon.com/">色見本と伝統色の色見本大辞典</a>の情報を元に表示しています
+</body>
+</html>
+
